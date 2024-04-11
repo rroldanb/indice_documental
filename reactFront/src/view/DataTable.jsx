@@ -1,27 +1,29 @@
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
-
-// import { defaultData } from '../utils/defaultData'
+import { flexRender, 
+    getCoreRowModel, 
+    getFilteredRowModel, 
+    getPaginationRowModel, 
+    getSortedRowModel, 
+    useReactTable } from '@tanstack/react-table'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { rankItem } from '@tanstack/match-sorter-utils'
-import { BarsArrowDownIcon, BarsArrowUpIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import { BarsArrowDownIcon, 
+    BarsArrowUpIcon, 
+    ChevronDoubleLeftIcon, 
+    ChevronDoubleRightIcon, 
+    ChevronLeftIcon, 
+    ChevronRightIcon, 
+    ChevronUpDownIcon, 
+    MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { XCircleIcon } from '@heroicons/react/24/outline'
 import DataColumns from '../utils/DataColumns'
 
-
-
-
-// Inicio Codigo para acomodar
+// Inicio Conexion a los datos
 
 import axios from 'axios'
-// import DebouncedInput from '../components/DebounceInput'
-
-const URI = 'http://localhost:8000/blogs'
+const URI = 'http://192.168.0.180:8000/docs'
 
 let data = []
-// Fin Codigo para acomodar
-
-
 
 const fuzzyFilter = (row, columnid, value, addMeta) => {
     const itemRank = rankItem(row.getValue(columnid), value)
@@ -29,6 +31,10 @@ const fuzzyFilter = (row, columnid, value, addMeta) => {
     return itemRank.passed
 }
 
+// Fin Conexion a los datos
+
+
+// Input bùsqueda
 const DebouncedInput = ({ value: keyWord, onChange, ...props }) => {
 
     const [value, setValue] = useState(keyWord)
@@ -40,27 +46,19 @@ const DebouncedInput = ({ value: keyWord, onChange, ...props }) => {
         return () => clearTimeout(timeout);
     }, [value])
 
-
     return (
-        <input {...props} value={value} onChange={e => setValue(e.target.value)} />
-
+        <input {...props} value={value} onChange={e => setValue(e.target.value)} id='cuadroBuscar' />
     )
 }
 
 
-
-
-
 const DataTable = () => {
 
-
-    // Inicio Codigo para acomodar
-    // let defaultData=[]
+    // Inicio Acceso a datos
 
     const [defaultData, setDefaultData] = useState([])
     useEffect(() => {
         gatData()
-
     }, [])
 
 
@@ -73,26 +71,19 @@ const DataTable = () => {
                 console.log("Response data is not an array:" + res.data);
             }
         } catch (error) {
-            console.log("Error fetching blogs:" + error);
+            console.log("Error fetching docs:" + error);
         }
     };
 
     useEffect(() => {
         data = defaultData
-
     }, [defaultData]);
 
-    // Fin Codigo para acomodar
+    // Fin Acceso a datos
 
-
-    // const [data, setData] = useState(defaultData)
-    const [globalFilter, setGlobalFilter] = useState('')
+    let [globalFilter, setGlobalFilter] = useState('')
     const [sorting, setSorting] = useState([])
 
-
-
-    console.log('Filtro')
-    console.log(globalFilter)
     const columns = DataColumns
 
     const getStateTable = () => {
@@ -131,14 +122,13 @@ const DataTable = () => {
             getSortedRowModel: getSortedRowModel(),
             onSortingChange: setSorting
         }
-
     )
 
     const getPageButtons = () => {
         const pageIndex = table.getState().pagination.pageIndex;
         const pageCount = table.getPageCount();
-        const startPage = Math.max(0, pageIndex - 3); // El -4 ajusta para mostrar 8 botones
-        const endPage = Math.min(pageCount, startPage + 7); // Mostrará máximo 8 botones
+        const startPage = Math.max(0, pageIndex - 3);
+        const endPage = Math.min(pageCount, startPage + 7);
 
         const pageButtons = [];
         for (let i = startPage; i < endPage; i++) {
@@ -158,17 +148,19 @@ const DataTable = () => {
 
 
 
-        const clearFilter = () => {
-            <DebouncedInput 
-            //type="text"
-                        value=''
-                        //value={''}
-                        //onChange={setValue}
-                        onChange={value => setGlobalFilter(String(value))}
-                        className=' text-gray-600 border-gray-300 outline-indigo-700 px-6 py-2 bg-gray-200 rounded p-2'
-                        placeholder='Buscar...' />
-        };
-        
+    const clearFilter = (setGlobalFilter) => {
+        // Limpia el filtro global
+        console.log('Està lleno?')
+        console.log(globalFilter)
+        setGlobalFilter('');
+        console.log('Està vacio?')
+        console.log(globalFilter)
+        cuadroBuscar.value = ''
+
+    };
+
+
+
 
     return (
         <div className='px-6 py-4'>
@@ -178,8 +170,6 @@ const DataTable = () => {
                     {/* <DebouncedInput  onChange={value => setGlobalFilter(String(value))} />  */}
                     <DebouncedInput type="text"
                         value={globalFilter ?? ''}
-                        //value={value}
-                        // onChange={setValue}
                         onChange={value => setGlobalFilter(String(value))}
                         className=' text-gray-600 border-gray-300 outline-indigo-700 px-6 py-2 bg-gray-200 rounded p-2'
                         placeholder='Buscar...' />
@@ -190,9 +180,6 @@ const DataTable = () => {
 
                 </div>
             </div>
-
-
-
             {/* Tabla */}
             <div className='overflow-auto'>
                 <table className='table-auto w-full min-w-[560px]'>
@@ -247,77 +234,55 @@ const DataTable = () => {
             <div className="mt-4 md:flex items-center justify-between ">
                 {/* Botones Paginacion */}
                 <div className='flex items-center gap-0.5 '>
-
+                    {/* boton primera pagina */}
                     <button className='text-gray-600 bg-gray-200 py-2 px-1 rounded border border-gray-500 hover:bg-slate-300 disabled:hover:bg-white disabled:hover:text-gray-300'
                         onClick={() => table.setPageIndex(0)}
                         disabled={!table.getCanPreviousPage()}>
                         {<ChevronDoubleLeftIcon className='h-6 w-4' />}
                     </button>
+                    {/* boton pagina anterior */}
                     <button className='text-gray-600 bg-gray-200 py-2 px-1 rounded border border-gray-500 hover:bg-slate-300 disabled:hover:bg-white disabled:hover:text-gray-300'
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}>
                         {<ChevronLeftIcon className='h-6 w-4' />}
                     </button>
-
-
-                    {/* Numero de pagina */}
-                    {/*                     <div className='container flex-wrap'>
-                        {table.getPageOptions().map((value, key) => (
-                            <button key={key}
-                                className={classNames({
-                                    "text-gray-600 bg-gray-200 py-0.5 px-2 font-bold rounded border border-gray-500 hover:bg-slate-300 disabled:hover:bg-white disabled:hover:text-gray-300": true,
-                                    "bg-indigo-200 text-indigo-700": value === table.getState().pagination.pageIndex
-                                })}
-                                onClick={() => table.setPageIndex(value)}>
-                                {value + 1}
-                            </button>
-                        ))}
-                    </div>
- */}
-
-                    {/* <div className='container flex-wrap'> */}
-                    {/* grupo de paginas previo */}
+                    {/* grupo de paginas abterior */}
                     <button
                         className="text-gray-600 bg-gray-200 py-2 px-2 font-bold rounded border border-gray-500 hover:bg-slate-300 disabled:hover:bg-white disabled:hover:text-gray-300 "
                         onClick={() => table.setPageIndex(table.getState().pagination.pageIndex - 7)}
                         hidden={table.getState().pagination.pageIndex < 7}>
                         ...
                     </button>
-
+                    {/* funcion con las paginas y numeros */}
                     {getPageButtons()}
                     {/* grupo de paginas siguiente */}
                     <button
                         className="text-gray-600 bg-gray-200 py-2 px-2 font-bold rounded border border-gray-500 hover:bg-slate-300 disabled:hover:bg-white disabled:hover:text-gray-300"
-                        // onClick={() => table.setPageIndex(table.getPageCount()- 1)}
                         onClick={() => table.setPageIndex(table.getState().pagination.pageIndex + 7)}
                         hidden={(table.getState().pagination.pageIndex + 8) > table.getPageCount()}>
-
                         ...
                     </button>
-                    {/* </div> */}
-
+                    {/* boton siguiente */}
                     <button className='text-gray-600 bg-gray-200 py-2 px-1 rounded border border-gray-500 hover:bg-slate-300 disabled:hover:bg-white disabled:hover:text-gray-300'
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}>
                         {<ChevronRightIcon className='h-6 w-4' />}
-
                     </button>
+                    {/* boton fin */}
                     <button className='text-gray-600 bg-gray-200 py-2 px-1 rounded border border-gray-500 hover:bg-slate-300 disabled:hover:bg-white disabled:hover:text-gray-300'
                         onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                         disabled={!table.getCanNextPage()}>
                         {<ChevronDoubleRightIcon className='h-6 w-4' />}
-
                     </button>
-
                 </div>
-                {/* Estado */}
+                {/* Estado mostrando n de m */}
                 <div className='text-gray-600 font-semibold px-4 py-2 bg-gray-200 rounded'>
                     Mostrando registros {getStateTable().firstIndex}&nbsp;
                     al {getStateTable().lastIndex}&nbsp;
                     de un total de {getStateTable().totalRows}&nbsp;
                     registros
                 </div>
-                {/* Select */}
+                {/* Select cantidad registros*/}
                 <select className='text-gray-600 border-gray-300 outline-indigo-700 px-4 py-2 bg-gray-200 rounded'
                     onChange={e => {
                         table.setPageSize(Number(e.target.value))
