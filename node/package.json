@@ -5,10 +5,13 @@
   "main": "/src/main.jsx",
   "type": "module",
   "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "start:dev": "node --watch src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "gagolabs",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
