@@ -149,6 +149,7 @@ const DataTable = () => {
 
 
     const clearFilter = (setGlobalFilter) => {
+        const cuadroBuscar = document.getElementById("cuadroBuscar")
         // Limpia el filtro global
         console.log('Està lleno?')
         console.log(globalFilter)

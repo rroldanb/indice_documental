@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Importar Archivo Excel</title>
+</head>
+<body>
+  <h1>Importar Archivo Excel</h1>
+  <form id="uploadForm">
+    <input type="file" id="fileInput" accept=".xlsx, .xls">
+    <button type="button" id="btnUpload">Cargar Archivo</button>
+    <button type="button" id="btnImport" disabled>Importar a la Base de Datos</button>
+  </form>
+
+  <!-- <script src="xlsx.full.min.js"></script> -->
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+  <!-- <script lang="javascript" src="dist/xlsx.full.min.js"></script> -->
+  <script src="./src/layout/loadexcel.jsx"></script>
+</body>
+</html>

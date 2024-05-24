@@ -13,7 +13,8 @@ const DocModel = db.define(mytabla, {
     Nombre1: {type: DataTypes.STRING},
     Nombre2: {type:DataTypes.STRING},
     Materia: {type:DataTypes.STRING},
-    FechaEscritura: {type:DataTypes.STRING}
+    FechaEscritura: {type:DataTypes.STRING},
+    'Year-Rep': {type:DataTypes.STRING}
 }, {
     tableName: mytabla,
     freezeTableName: true, 
