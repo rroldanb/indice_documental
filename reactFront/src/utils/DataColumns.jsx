@@ -16,10 +16,9 @@ const DataColumns = [
         header: () => <span>Materia</span>,
         enableSorting: true
     },
-
     {
-        accessorKey: 'Year',
-        header: () => <span>Año</span>,
+        accessorKey: 'Year-Rep',
+        header: () => <span>Año-Rep</span>,
         enableSorting: true
     },
     {
@@ -27,11 +26,7 @@ const DataColumns = [
         header: () => <span>Fojas</span>,
         enableSorting: true
     },
-    {
-        accessorKey: 'Repertorio',
-        header: () => <span>Repertorio</span>,
-        enableSorting: true
-    },
+
     {
         accessorKey: 'FechaEscritura',
         header: () => <span>Fecha Escritura</span>,

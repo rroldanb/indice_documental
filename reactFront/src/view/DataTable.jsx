@@ -35,21 +35,27 @@ const fuzzyFilter = (row, columnid, value, addMeta) => {
 
 
 // Input bùsqueda
-const DebouncedInput = ({ value: keyWord, onChange, ...props }) => {
 
-    const [value, setValue] = useState(keyWord)
+const DebouncedInput = ({ value: keyWord, onChange, ...props }) => {
+    const [value, setValue] = useState(keyWord);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
             onChange(value);
-        }, 300)
+        }, 300);
         return () => clearTimeout(timeout);
-    }, [value])
+    }, [value, onChange]);
+
+    useEffect(() => {
+        setValue(keyWord);
+    }, [keyWord]);
 
     return (
         <input {...props} value={value} onChange={e => setValue(e.target.value)} id='cuadroBuscar' />
-    )
-}
+    );
+};
+
+
 
 
 const DataTable = () => {
@@ -148,18 +154,14 @@ const DataTable = () => {
 
 
 
-    const clearFilter = (setGlobalFilter) => {
+    const clearFilter = () => {
         const cuadroBuscar = document.getElementById("cuadroBuscar")
         // Limpia el filtro global
-        console.log('Està lleno?')
-        console.log(globalFilter)
-        setGlobalFilter('');
-        console.log('Està vacio?')
-        console.log(globalFilter)
         cuadroBuscar.value = ''
+        cuadroBuscar.ariaLabel=''
+        setGlobalFilter('');
 
     };
-
 
 
 
