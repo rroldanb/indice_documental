@@ -9,7 +9,7 @@ export const getAllDocs = async (req,res) =>{
 
     try {
         const docs = await DocModel.findAll({
-            //limit: 10000 ,// Limitar la consulta a los primeros 100 registros
+            //limit: 100 ,// Limitar la consulta a los primeros 100 registros
             order: [['id', 'DESC']] 
         });
 
@@ -33,16 +33,16 @@ export const getDoc = async (req,res) =>{
 }
 
 // crear uno
-export const createDoc = async (req,res) =>{
-    try {
-        await DocModel.create(req.body)
-        res.json({
-            "message":"Registro creado con éxito"
-        })
-    } catch (error) {
-        res.json({message: error.message})
-    }
-}
+// export const createDoc = async (req,res) =>{
+//     try {
+//         await DocModel.create(req.body)
+//         res.json({
+//             "message":"Registro creado con éxito"
+//         })
+//     } catch (error) {
+//         res.json({message: error.message})
+//     }
+// }
 
 // actualizar uno
 // export const updateDoc = async (req,res) =>{
