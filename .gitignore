@@ -13,6 +13,7 @@ reactFront/node_modules
 dist
 dist-ssr
 *.local
+dist_*
 
 # Editor directories and files
 .vscode/*
