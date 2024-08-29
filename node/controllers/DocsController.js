@@ -6,7 +6,7 @@ import DocModel from "../models/DocModel.js";
 
 // mostrar todos
 export const getAllDocs = async (req,res) =>{
-
+console.log ('Origin:', req.headers.origin)
     try {
         const docs = await DocModel.findAll({
             //limit: 100 ,// Limitar la consulta a los primeros 100 registros
