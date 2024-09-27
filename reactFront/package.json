@@ -1,7 +1,7 @@
 {
-  "name": "my-inspiration",
+  "name": "indice-documental-front",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "author": "gagolabs",
+  "license": "ISC",
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@tanstack/match-sorter-utils": "^8.11.8",

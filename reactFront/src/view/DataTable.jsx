@@ -21,7 +21,7 @@ import DataColumns from '../utils/DataColumns'
 // Inicio Conexion a los datos
 
 import axios from 'axios'
-const URI = 'http://192.168.0.180:8000/docs'
+const URI = 'https://larrereravanal.cl/rrdocsindex'
 
 let data = []
 

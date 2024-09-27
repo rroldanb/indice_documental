@@ -8,24 +8,12 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use('/docs', docRoutes) 
+app.use('/rrdocsindex', docRoutes) 
 
-
-// const express = require('express');
-// const app = express();
-
-// const mysql = require('mysql');
-
-
-// Middleware para obtener la IP del cliente
 app.use((req, res, next) => {
   req.clientIP = req.ip || req.remoteAddress;
-//   console.log("IP cliente")
-//   console.log(req.clientIP)
   next();
 });
-
-
 
 
 try {
