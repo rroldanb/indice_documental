@@ -7,9 +7,9 @@ const DebouncedInput = ({ value: keyWord, onChange, ...props }) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             onChange(value);
-        }, 500);
+        }, 1000);
         return () => clearTimeout(timeout);
-    }, [value]);
+    }, [value, onChange]);
 
     const clearInput = () => {
         setValue('');

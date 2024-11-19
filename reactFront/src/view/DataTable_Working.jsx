@@ -18,13 +18,6 @@ import { BarsArrowDownIcon,
 import { XCircleIcon } from '@heroicons/react/24/outline'
 import DataColumns from '../utils/DataColumns'
 
-
-
-import ModalViewComponent from './ModalViewComponent.jsx'
-
-
-
-
 // Inicio Conexion a los datos
 
 import axios from 'axios'
@@ -40,7 +33,6 @@ const fuzzyFilter = (row, columnid, value, addMeta) => {
 }
 
 // Fin Conexion a los datos
-
 
 
 // Input bùsqueda
@@ -63,6 +55,7 @@ const DebouncedInput = ({ value: keyWord, onChange, ...props }) => {
         <input {...props} value={value} onChange={e => setValue(e.target.value)} id='cuadroBuscar' />
     );
 };
+
 
 
 
@@ -94,37 +87,6 @@ const DataTable = () => {
     }, [defaultData]);
 
     // Fin Acceso a datos
-
-
-//EL MODAL
-
-
-const [showViewModal, setShowViewModal] = useState(false);
-const [selectedData, setSelectedData] = useState(null);
-
-const handleRowClick = async (id) => {
-    try {
-      const response = await fetch(`http://127.0.0.1:8000/rrdocsindex/${id}`); // Reemplaza con tu endpoint
-      if (!response.ok) {
-        throw new Error("Error al obtener los datos");
-      }
-      const data = await response.json();
-      setSelectedData(data); // Almacena los datos obtenidos
-      setShowViewModal(true); // Abre el modal
-    } catch (error) {
-      console.error("Error al obtener el registro:", error);
-    }
-  };
-  
-
-const handleCloseModal = () => {
-  setShowViewModal(false);
-  setSelectedData(null);
-};
-
-//EL MODAL
-
-
 
     let [globalFilter, setGlobalFilter] = useState('')
     const [sorting, setSorting] = useState([])
@@ -258,10 +220,7 @@ const handleCloseModal = () => {
                     {/* Tabla Body */}
                     <tbody className='bg-slate-200 '>
                         {table.getRowModel().rows.map(row => (
-                            <tr key={row.id} 
-                                className='text-gray-600 hover:bg-slate-300 cursor-pointer'
-                                onClick={() => handleRowClick(row.original.id)}
-                                >
+                            <tr key={row.id} className='text-gray-600 hover:bg-slate-300'>
                                 {row.getVisibleCells().map(cell => (
                                     <td key={cell.id} className='py-2 px-4'>
                                         {flexRender(
@@ -274,31 +233,6 @@ const handleCloseModal = () => {
                         ))}
                     </tbody>
                 </table>
-
-                  {/* Modal */}
-                {/* {showModal && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
-                        <div className="flex justify-between">
-
-                        <h2 className="text-2xl font-bold mb-4">Editar Registro</h2>
-                        <button
-                        onClick={handleCloseModal}
-                        className=" top-2 right-2 text-gray-200 px-4 py-2 rounded-lg hover:text-gray-700 bg-red-500"
-                        >
-                        Cerrar
-                        </button>
-                        </div>
-                        <IngresoForm initialData={selectedData} onClose={handleCloseModal} />
-                    </div>
-                    </div>
-                )} */}
-
-{showViewModal && (
-        <ModalViewComponent onClose={handleCloseModal} selectedData={selectedData} />
-      )}
-
-
             </div>
             {/* Footer */}
             <div className="mt-4 md:flex items-center justify-between ">
