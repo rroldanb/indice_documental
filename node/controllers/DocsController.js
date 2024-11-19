@@ -1,6 +1,7 @@
 // imoprtar modelo
 
 import DocModel from "../models/DocModel.js";
+import DocModelFull from "../models/DocModelFull.js";
 
 // metodos CRUD
 
@@ -9,10 +10,10 @@ export const getAllDocs = async (req,res) =>{
 console.log ('Origin:', req.headers.origin)
     try {
         const docs = await DocModel.findAll({
-            //limit: 100 ,// Limitar la consulta a los primeros 100 registros
+            // limit: 100 ,// Limitar la consulta a los primeros 100 registros
             order: [['id', 'DESC']] 
         });
-
+console.log(docs)
         res.json(docs)
     } catch (error) {
         res.json({message: error.message})
@@ -22,7 +23,7 @@ console.log ('Origin:', req.headers.origin)
 // mostrar uno
 export const getDoc = async (req,res) =>{
     try {
-        const doc = await DocModel.findAll({
+        const doc = await DocModelFull.findAll({
             where:{id:req.params.id}
         })
         console.log("buscando datos")
@@ -33,16 +34,17 @@ export const getDoc = async (req,res) =>{
 }
 
 // crear uno
-// export const createDoc = async (req,res) =>{
-//     try {
-//         await DocModel.create(req.body)
-//         res.json({
-//             "message":"Registro creado con éxito"
-//         })
-//     } catch (error) {
-//         res.json({message: error.message})
-//     }
-// }
+export const createDoc = async (req,res) =>{
+    try {
+        await DocModelFull.create(req.body)
+        console.log('data para guardar', req.body)
+        res.json({
+            "message":"Registro creado con éxito"
+        })
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
 
 // actualizar uno
 // export const updateDoc = async (req,res) =>{

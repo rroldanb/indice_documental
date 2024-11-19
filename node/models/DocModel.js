@@ -1,6 +1,4 @@
 import db from "../database/db.js";
-
-//importar sequelize
 import {  DataTypes } from "sequelize";
 
 const mytabla = "MasterIndex19982023"
