@@ -33,6 +33,7 @@ const ModalViewComponent = ({ onClose, selectedData }) => {
             // { name: 'FESC', label: 'FESC', type: 'text' , width:"w-[200px]"},
             // { name: 'MATRI', label: 'Matrícero Formato', type: 'text' , width:"w-[195px]"},
           ].map((field) => (
+            
             <div key={field.name} className={`mb-2 ${field.width} ${field.align} `}>
               <label htmlFor={field.name} className="block text-gray-700 mb-1 font-bold ">
                 {field.label}

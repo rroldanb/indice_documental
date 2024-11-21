@@ -8,9 +8,8 @@ const db = new Sequelize(
     config.db_password,
     {
         host: config.db_host,
-        dialect: config.db_dialect,
+        dialect: "mysql",
         logging: false
     })
-
 
 export default db
