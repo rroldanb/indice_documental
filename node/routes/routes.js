@@ -1,6 +1,6 @@
 import express from 'express'
 import { 
-    createDoc,
+    // createDoc,
     //  deleteDoc, 
      getAllDocs, 
      getDoc
@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.get('/', getAllDocs)
 router.get('/:id', getDoc)
-router.post('/', createDoc)
+// router.post('/', createDoc)
 // router.put('/:id', updateDoc)
 // router.delete('/:id', deleteDoc)
 

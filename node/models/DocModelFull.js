@@ -7,8 +7,8 @@ const DocModelFull = db.define(mytabla, {
   id: { type: DataTypes.INTEGER, primaryKey: true },
   Fojas: { type: DataTypes.INTEGER, allowNull: true },
   Repertorio: { type: DataTypes.INTEGER, allowNull: true },
-  Year: { type: DataTypes.INTEGER, allowNull: true },
   Bimestre: { type: DataTypes.INTEGER, allowNull: true },
+  Year: { type: DataTypes.INTEGER, allowNull: true },
   Nombre1: { type: DataTypes.STRING(220), allowNull: true },
   Nombre2: { type: DataTypes.STRING(220), allowNull: true },
   CONT: { type: DataTypes.STRING(150), allowNull: true },
@@ -28,19 +28,7 @@ const DocModelFull = db.define(mytabla, {
     type: DataTypes.DATE,
 
   },
-//   "Year-Rep": {
-//     type: DataTypes.VIRTUAL(DataTypes.STRING, [
-//       "Year",
-//       "Repertorio",
-//     ]),
-//     get() {
-//       const year = this.getDataValue("Year");
-//       const repertorio = this.getDataValue("Repertorio");
-//       return year && repertorio
-//         ? `${year}-${String(repertorio).padStart(4, "0")}`
-//         : null;
-//     },
-//   },
+
 'Year-Rep': {type:DataTypes.STRING(10), allowNull:true}
 
 }, {

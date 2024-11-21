@@ -13,7 +13,7 @@ console.log ('Origin:', req.headers.origin)
             // limit: 100 ,// Limitar la consulta a los primeros 100 registros
             order: [['id', 'DESC']] 
         });
-console.log(docs)
+// console.log(docs)
         res.json(docs)
     } catch (error) {
         res.json({message: error.message})
@@ -34,17 +34,17 @@ export const getDoc = async (req,res) =>{
 }
 
 // crear uno
-export const createDoc = async (req,res) =>{
-    try {
-        await DocModelFull.create(req.body)
-        console.log('data para guardar', req.body)
-        res.json({
-            "message":"Registro creado con éxito"
-        })
-    } catch (error) {
-        res.json({message: error.message})
-    }
-}
+// export const createDoc = async (req,res) =>{
+//     try {
+//         await DocModelFull.create(req.body)
+//         console.log('data para guardar', req.body)
+//         res.json({
+//             "message":"Registro creado con éxito"
+//         })
+//     } catch (error) {
+//         res.json({message: error.message})
+//     }
+// }
 
 // actualizar uno
 // export const updateDoc = async (req,res) =>{

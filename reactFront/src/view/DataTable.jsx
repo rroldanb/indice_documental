@@ -18,18 +18,11 @@ import { BarsArrowDownIcon,
 import { XCircleIcon } from '@heroicons/react/24/outline'
 import DataColumns from '../utils/DataColumns'
 
-
-
 import ModalViewComponent from './ModalViewComponent.jsx'
 
-
-
-
-// Inicio Conexion a los datos
-
 import axios from 'axios'
-// const URI = 'https://larrereravanal.cl/rrdocsindex'
-const URI = 'http://127.0.0.1:8000/rrdocsindex'
+
+const URI = import.meta.env.VITE_REACT_APP_URI
 
 let data = []
 
@@ -104,7 +97,7 @@ const [selectedData, setSelectedData] = useState(null);
 
 const handleRowClick = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/rrdocsindex/${id}`); // Reemplaza con tu endpoint
+      const response = await fetch(`${URI}/${id}`); // Reemplaza con tu endpoint
       if (!response.ok) {
         throw new Error("Error al obtener los datos");
       }
@@ -195,11 +188,9 @@ const handleCloseModal = () => {
 
     const clearFilter = () => {
         const cuadroBuscar = document.getElementById("cuadroBuscar")
-        // Limpia el filtro global
         cuadroBuscar.value = ''
         cuadroBuscar.ariaLabel=''
         setGlobalFilter('');
-
     };
 
 
@@ -275,24 +266,6 @@ const handleCloseModal = () => {
                     </tbody>
                 </table>
 
-                  {/* Modal */}
-                {/* {showModal && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
-                        <div className="flex justify-between">
-
-                        <h2 className="text-2xl font-bold mb-4">Editar Registro</h2>
-                        <button
-                        onClick={handleCloseModal}
-                        className=" top-2 right-2 text-gray-200 px-4 py-2 rounded-lg hover:text-gray-700 bg-red-500"
-                        >
-                        Cerrar
-                        </button>
-                        </div>
-                        <IngresoForm initialData={selectedData} onClose={handleCloseModal} />
-                    </div>
-                    </div>
-                )} */}
 
 {showViewModal && (
         <ModalViewComponent onClose={handleCloseModal} selectedData={selectedData} />
